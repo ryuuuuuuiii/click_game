@@ -323,16 +323,56 @@
                     <button id="resume-btn"
                         class="w-full py-3 bg-brand-cyan/10 border border-brand-cyan/50 hover:bg-brand-cyan/20 hover:border-brand-cyan rounded-xl text-brand-cyan font-bold tracking-wider transition-all">RESUME
                         GAME</button>
-                    <!-- Small helper to explain settings can only be changed fully in main menu, or toggle subtitles -->
-                    <div class="bg-black/40 border border-slate-700 rounded-xl p-4 my-2">
-                        <div class="flex items-center justify-between">
-                            <label class="text-sm text-slate-300 cursor-pointer select-none"
-                                for="pause-subtitle-toggle">Show Helper Text</label>
+                    <div class="bg-black/40 border border-slate-700 rounded-xl p-4 my-2 text-left space-y-3 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar">
+                        <!-- Theme Dropdown -->
+                        <div>
+                            <label class="block text-xs text-slate-300 uppercase tracking-widest mb-1">Environment Theme</label>
+                            <select id="pause-theme-selector" class="w-full bg-black/50 border border-slate-700 rounded-lg p-2 text-sm text-brand-cyan outline-none focus:border-brand-cyan transition-colors cursor-pointer appearance-none">
+                                <option value="cyberpunk">Neon Cyberpunk</option>
+                                <option value="sky">Ethereal Sky</option>
+                                <option value="forest">Mystic Forest</option>
+                                <option value="anime">Anime Otaku</option>
+                            </select>
+                        </div>
+
+                        <!-- Letter Theme Dropdown -->
+                        <div>
+                            <label class="block text-xs text-slate-300 uppercase tracking-widest mb-1">Letter Theme</label>
+                            <select id="pause-letter-theme-selector" class="w-full bg-black/50 border border-slate-700 rounded-lg p-2 text-sm text-brand-cyan outline-none focus:border-brand-cyan transition-colors cursor-pointer appearance-none">
+                                <option value="neon">📟 Cyber Neon (Default)</option>
+                                <option value="glass">❄️ Frosty Glass</option>
+                                <option value="retro">👾 Retro 8-bit</option>
+                                <option value="fiery">🔥 Fiery Magma</option>
+                            </select>
+                        </div>
+
+                        <!-- Elimination Effect Dropdown -->
+                        <div>
+                            <label class="block text-xs text-slate-300 uppercase tracking-widest mb-1">Elimination Effect</label>
+                            <select id="pause-elimination-effect-selector" class="w-full bg-black/50 border border-slate-700 rounded-lg p-2 text-sm text-brand-cyan outline-none focus:border-brand-cyan transition-colors cursor-pointer appearance-none">
+                                <option value="fruit_slice">⚔️ Fruit Ninja Slice</option>
+                                <option value="blade_spin">🗡️ Spinning Sword Blade</option>
+                                <option value="explode">💥 Magical Explosion</option>
+                                <option value="shoot">🔫 Gunshot & Debris</option>
+                            </select>
+                        </div>
+
+                        <!-- Letter Size Slider -->
+                        <div class="mt-2">
+                            <label class="block text-xs text-slate-300 uppercase tracking-widest mb-1 flex justify-between">
+                                <span>Letter Size</span>
+                                <span id="pause-letter-size-display" class="text-brand-cyan">1.0x</span>
+                            </label>
+                            <input type="range" id="pause-letter-size-slider" min="0.5" max="2.0" step="0.1" value="1.0" class="w-full accent-brand-cyan cursor-pointer">
+                        </div>
+
+                        <!-- Subtitle Toggle -->
+                        <div class="flex items-center justify-between mt-2 border-t border-slate-700 pt-3">
+                            <label class="text-sm text-slate-300 cursor-pointer select-none" for="pause-subtitle-toggle">Show Helper Text (HUD)</label>
                             <div class="relative inline-block w-10 mr-2 align-middle select-none">
                                 <input type="checkbox" id="pause-subtitle-toggle" checked
                                     class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-slate-400 checked:right-0 checked:border-brand-cyan checked:bg-brand-cyan transition-all duration-200" />
-                                <label for="pause-subtitle-toggle"
-                                    class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-700 cursor-pointer"></label>
+                                <label for="pause-subtitle-toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-700 cursor-pointer"></label>
                             </div>
                         </div>
                     </div>

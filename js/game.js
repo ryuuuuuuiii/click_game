@@ -96,17 +96,91 @@ export class Game {
 
         this.typingSys = new TypingSystem(this.queueManager, this.finisherMgr, this.hud, this.audio, this.particles, config.eliminationEffect);
 
-        // Subtitle Toggle
+        // Set up in-game UI settings based on config
         const hudBottom = document.getElementById('hud-bottom');
         if (hudBottom) {
             hudBottom.style.opacity = config.showSubtitles ? '1' : '0';
         }
 
+        const syncSettings = () => {
+            localStorage.setItem('typestrike_theme', this.config.theme);
+            localStorage.setItem('typestrike_letter_theme', this.config.letterTheme);
+            localStorage.setItem('typestrike_elimination_effect', this.config.eliminationEffect);
+            localStorage.setItem('typestrike_letter_size', this.config.letterSize);
+            
+            const mTheme = document.getElementById('theme-selector');
+            if (mTheme) mTheme.value = this.config.theme;
+            
+            const mLTheme = document.getElementById('letter-theme-selector');
+            if (mLTheme) mLTheme.value = this.config.letterTheme;
+            
+            const mEffect = document.getElementById('elimination-effect-selector');
+            if (mEffect) mEffect.value = this.config.eliminationEffect;
+            
+            const mSize = document.getElementById('letter-size-slider');
+            if (mSize) {
+                mSize.value = this.config.letterSize;
+                const mSizeDisp = document.getElementById('letter-size-display');
+                if (mSizeDisp) mSizeDisp.innerText = Number(this.config.letterSize).toFixed(1) + 'x';
+            }
+        };
+
         const pauseToggle = document.getElementById('pause-subtitle-toggle');
         if (pauseToggle) {
             pauseToggle.checked = config.showSubtitles;
             pauseToggle.onchange = (e) => {
-                if (hudBottom) hudBottom.style.opacity = e.target.checked ? '1' : '0';
+                this.config.showSubtitles = e.target.checked;
+                if (hudBottom) hudBottom.style.opacity = this.config.showSubtitles ? '1' : '0';
+            };
+        }
+
+        const pauseTheme = document.getElementById('pause-theme-selector');
+        if (pauseTheme) {
+            pauseTheme.value = config.theme;
+            pauseTheme.onchange = (e) => {
+                this.config.theme = e.target.value;
+                this._applyTheme(this.config.theme);
+                syncSettings();
+            };
+        }
+
+        const pauseLetterTheme = document.getElementById('pause-letter-theme-selector');
+        if (pauseLetterTheme) {
+            pauseLetterTheme.value = config.letterTheme;
+            pauseLetterTheme.onchange = (e) => {
+                this.config.letterTheme = e.target.value;
+                this.queueManager.letterTheme = this.config.letterTheme;
+                this.queueManager.targets.forEach(t => {
+                    t.updateTheme(this.config.letterTheme);
+                });
+                syncSettings();
+            };
+        }
+
+        const pauseEffect = document.getElementById('pause-elimination-effect-selector');
+        if (pauseEffect) {
+            pauseEffect.value = config.eliminationEffect;
+            pauseEffect.onchange = (e) => {
+                this.config.eliminationEffect = e.target.value;
+                this.typingSys.eliminationEffect = this.config.eliminationEffect;
+                syncSettings();
+            };
+        }
+
+        const pauseLetterSize = document.getElementById('pause-letter-size-slider');
+        const pauseLetterSizeDisp = document.getElementById('pause-letter-size-display');
+        if (pauseLetterSize) {
+            pauseLetterSize.value = config.letterSize;
+            if (pauseLetterSizeDisp) pauseLetterSizeDisp.innerText = Number(config.letterSize).toFixed(1) + 'x';
+            pauseLetterSize.oninput = (e) => {
+                const newSize = parseFloat(e.target.value);
+                if (pauseLetterSizeDisp) pauseLetterSizeDisp.innerText = newSize.toFixed(1) + 'x';
+                this.config.letterSize = newSize;
+                this.queueManager.letterSize = newSize;
+                this.queueManager.targets.forEach(t => {
+                    t.sprite.scale.set(1.5 * newSize, 1.5 * newSize, 1);
+                });
+                syncSettings();
             };
         }
 

@@ -30,42 +30,45 @@ function _drawLetterTile(ctx, char, state, isGolden, theme = 'neon') {
     let cfg;
     if (theme === 'glass') {
         cfg = {
-            pending: { bg: 'rgba(255,255,255,0.1)', border: 'rgba(255,255,255,0.3)', text: '#ffffff' },
-            active:  { bg: 'rgba(255,255,255,0.25)', border: 'rgba(255,255,255,0.8)', text: '#ffffff' },
-            error:   { bg: 'rgba(255,50,50,0.3)', border: 'rgba(255,100,100,0.8)', text: '#ff5555' },
+            pending: { bg: 'rgba(200,225,255,0.15)', border: 'rgba(255,255,255,0.4)', text: '#ffffff', glow: 'rgba(255,255,255,0.6)' },
+            active:  { bg: 'rgba(200,230,255,0.3)', border: 'rgba(255,255,255,0.9)', text: '#ffffff', glow: 'rgba(255,255,255,0.9)' },
+            error:   { bg: 'rgba(255,50,50,0.3)', border: 'rgba(255,100,100,0.8)', text: '#ff5555', glow: 'rgba(255,80,80,0.8)' },
         }[state];
     } else if (theme === 'retro') {
         cfg = {
-            pending: { bg: 'rgba(0,0,0,0.9)', border: 'rgba(0,180,0,0.5)', text: '#00aa00' },
-            active:  { bg: 'rgba(0,30,0,1.0)', border: 'rgba(0,255,0,1.0)', text: '#00ff00' },
-            error:   { bg: 'rgba(50,0,0,1.0)', border: 'rgba(255,0,0,1.0)', text: '#ff0000' },
+            pending: { bg: 'rgba(0,15,0,0.9)', border: 'rgba(0,150,0,0.6)', text: '#00cc00', glow: 'rgba(0,200,0,0.5)' },
+            active:  { bg: 'rgba(0,35,0,1.0)', border: 'rgba(0,255,0,1.0)', text: '#55ff55', glow: 'rgba(0,255,0,0.9)' },
+            error:   { bg: 'rgba(50,0,0,1.0)', border: 'rgba(255,0,0,1.0)', text: '#ff3333', glow: 'rgba(255,0,0,0.8)' },
         }[state];
     } else if (theme === 'fiery') {
         cfg = {
-            pending: { bg: 'rgba(40,10,10,0.9)', border: 'rgba(200,80,0,0.5)', text: '#ff8844' },
-            active:  { bg: 'rgba(60,10,10,0.95)', border: 'rgba(255,150,0,1.0)', text: '#ffcc00' },
-            error:   { bg: 'rgba(60,0,0,0.9)', border: 'rgba(255,0,0,1.0)', text: '#ff0000' },
+            pending: { bg: 'rgba(45,10,5,0.9)', border: 'rgba(200,60,0,0.6)', text: '#ff8844', glow: 'rgba(255,100,0,0.5)' },
+            active:  { bg: 'rgba(65,15,5,0.95)', border: 'rgba(255,120,0,1.0)', text: '#ffdd44', glow: 'rgba(255,150,0,0.9)' },
+            error:   { bg: 'rgba(60,0,0,0.9)', border: 'rgba(255,0,0,1.0)', text: '#ff0000', glow: 'rgba(255,0,0,0.8)' },
         }[state];
     } else {
         // default 'neon'
         cfg = {
-            pending: { bg: 'rgba(8,8,30,0.80)', border: 'rgba(90,90,180,0.55)', text: '#bbc4ff' },
-            active: { bg: 'rgba(0,20,50,0.90)', border: 'rgba(0,240,255,0.95)', text: '#00f0ff' },
-            error: { bg: 'rgba(60,4,4,0.90)', border: 'rgba(255,50,80,0.95)', text: '#ff3050' },
+            pending: { bg: 'rgba(8,8,30,0.85)', border: 'rgba(90,90,180,0.6)', text: '#bbc4ff', glow: 'rgba(90,90,180,0.6)' },
+            active: { bg: 'rgba(0,20,50,0.95)', border: 'rgba(0,240,255,1.0)', text: '#00ffff', glow: 'rgba(0,240,255,0.9)' },
+            error: { bg: 'rgba(60,4,4,0.90)', border: 'rgba(255,50,80,0.95)', text: '#ff3050', glow: 'rgba(255,50,80,0.8)' },
         }[state];
     }
 
     if (isGolden) {
         cfg = {
-            pending: { bg: 'rgba(30,25,0,0.80)', border: 'rgba(180,150,0,0.55)', text: '#ffeebb' },
-            active: { bg: 'rgba(50,40,0,0.90)', border: 'rgba(255,204,0,0.95)', text: '#ffcc00' },
-            error: { bg: 'rgba(60,4,4,0.90)', border: 'rgba(255,50,80,0.95)', text: '#ff3050' },
+            pending: { bg: 'rgba(30,25,0,0.80)', border: 'rgba(180,150,0,0.55)', text: '#ffeebb', glow: 'rgba(180,150,0,0.6)' },
+            active: { bg: 'rgba(50,40,0,0.90)', border: 'rgba(255,204,0,0.95)', text: '#ffcc00', glow: 'rgba(255,204,0,0.9)' },
+            error: { bg: 'rgba(60,4,4,0.90)', border: 'rgba(255,50,80,0.95)', text: '#ff3050', glow: 'rgba(255,50,80,0.8)' },
         }[state];
     }
 
     if (isSpace && state === 'pending') {
         cfg.bg = isGolden ? 'rgba(30,25,0,0.40)' : 'rgba(8,8,30,0.40)';
         cfg.text = isGolden ? 'rgba(255,238,187,0.5)' : 'rgba(187,196,255,0.5)';
+        if (theme === 'glass') cfg.bg = 'rgba(255,255,255,0.05)';
+        else if (theme === 'retro') cfg.bg = 'rgba(0,15,0,0.4)';
+        else if (theme === 'fiery') cfg.bg = 'rgba(45,10,5,0.4)';
     }
 
     const pad = 4;
@@ -73,10 +76,102 @@ function _drawLetterTile(ctx, char, state, isGolden, theme = 'neon') {
     const s = TILE_SIZE;
 
     // rounded-rect background
+    ctx.save();
     ctx.fillStyle = cfg.bg;
     ctx.beginPath();
     ctx.roundRect(pad, pad, s - pad * 2, s - pad * 2, r);
     ctx.fill();
+
+    // Clip texture inside the rounded rect
+    ctx.clip();
+
+    // === THEME TEXTURES ===
+    if (theme === 'glass') {
+        // Frosty noise
+        for (let i = 0; i < 300; i++) {
+            ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.08)' : 'rgba(200,220,255,0.04)';
+            ctx.fillRect(Math.random() * s, Math.random() * s, Math.random() * 2 + 1, Math.random() * 2 + 1);
+        }
+        // Diagonal Glare 1
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+        ctx.beginPath();
+        ctx.moveTo(0, -20);
+        ctx.lineTo(s * 0.8, -20);
+        ctx.lineTo(0, s * 0.8);
+        ctx.fill();
+        // Diagonal Glare 2
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.beginPath();
+        ctx.moveTo(s, s * 0.2);
+        ctx.lineTo(s * 0.2, s);
+        ctx.lineTo(s, s);
+        ctx.fill();
+    } else if (theme === 'retro') {
+        // Horizontal Scanlines
+        ctx.fillStyle = 'rgba(0, 200, 0, 0.08)';
+        for (let i = 0; i < s; i += 4) {
+            ctx.fillRect(0, i, s, 2);
+        }
+        // Vertical Grid lines
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        for (let i = 0; i < s; i += 4) {
+            ctx.fillRect(i, 0, 1, s);
+        }
+        // Subtle Vignette
+        const grad = ctx.createRadialGradient(s / 2, s / 2, s * 0.1, s / 2, s / 2, s * 0.8);
+        grad.addColorStop(0, 'rgba(0,0,0,0)');
+        grad.addColorStop(1, 'rgba(0,0,0,0.5)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, s, s);
+    } else if (theme === 'fiery') {
+        // Magma gradient base
+        const bgGrad = ctx.createLinearGradient(0, 0, 0, s);
+        bgGrad.addColorStop(0, 'rgba(255, 60, 0, 0.1)');
+        bgGrad.addColorStop(1, 'rgba(100, 0, 0, 0.4)');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, s, s);
+
+        // Magma rocks/embers
+        for (let i = 0; i < 50; i++) {
+            ctx.fillStyle = Math.random() > 0.8 ? 'rgba(255, 200, 0, 0.3)' : 'rgba(20, 0, 0, 0.6)';
+            ctx.beginPath();
+            ctx.arc(Math.random() * s, Math.random() * s, Math.random() * 5 + 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        // Crack veins
+        ctx.strokeStyle = 'rgba(255, 50, 0, 0.4)';
+        ctx.lineWidth = 2;
+        for (let j = 0; j < 3; j++) {
+            ctx.beginPath();
+            let curX = Math.random() * s;
+            let curY = 0;
+            ctx.moveTo(curX, curY);
+            while (curY < s) {
+                curX += (Math.random() - 0.5) * 20;
+                curY += Math.random() * 15 + 5;
+                ctx.lineTo(curX, curY);
+            }
+            ctx.stroke();
+        }
+    } else {
+        // Neon tech grid
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.1)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < s; i += 12) {
+            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, s); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(s, i); ctx.stroke();
+        }
+        // Tech connection dots
+        ctx.fillStyle = 'rgba(0, 240, 255, 0.2)';
+        for (let i = 12; i < s; i += 24) {
+            for (let j = 12; j < s; j += 24) {
+                if (Math.random() > 0.5) {
+                    ctx.beginPath(); ctx.arc(i, j, 1.5, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+        }
+    }
+    ctx.restore();
 
     // border
     ctx.strokeStyle = cfg.border;
@@ -87,12 +182,16 @@ function _drawLetterTile(ctx, char, state, isGolden, theme = 'neon') {
 
     // active: outer glow ring
     if (state === 'active') {
-        ctx.strokeStyle = isGolden ? 'rgba(255,204,0,0.3)' : 'rgba(0,240,255,0.3)';
+        ctx.strokeStyle = cfg.glow;
         ctx.lineWidth = 6;
         ctx.beginPath();
         ctx.roundRect(1, 1, s - 2, s - 2, r + 3);
         ctx.stroke();
     }
+
+    // Setup Text Drop Shadow
+    ctx.shadowColor = state === 'active' ? cfg.glow : 'rgba(0,0,0,0)';
+    ctx.shadowBlur = state === 'active' ? 12 : 0;
 
     // text
     const fs = state === 'active' ? 52 : 44;
@@ -112,6 +211,9 @@ function _drawLetterTile(ctx, char, state, isGolden, theme = 'neon') {
     // adjust y-position slightly for underscore so it looks vertically centered like a dash/box
     const yOffset = isSpace ? -5 : 0;
     ctx.fillText(displayChar, s / 2, s / 2 + yOffset);
+    
+    // reset shadow just in case
+    ctx.shadowBlur = 0;
 }
 
 /* ────────────────────────────────────────────────────────────────
@@ -187,6 +289,14 @@ export class LetterTarget {
     }
 
     /* ── State updates ────────────────────────────────────────── */
+
+    updateTheme(newTheme) {
+        this.letterTheme = newTheme;
+        if (!this.alive) return;
+        const ctx = this._canvas.getContext('2d');
+        _drawLetterTile(ctx, this.char, this._state, this.isGolden, this.letterTheme);
+        this._texture.needsUpdate = true;
+    }
 
     setState(state) {
         if (this._state === state || !this.alive) return;

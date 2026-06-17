@@ -1,0 +1,126 @@
+/* ================================================================
+   TypeStrike — Core Styles (Tailwind handles UI)
+   ================================================================ */
+
+/* Reset for canvas */
+canvas {
+    display: block;
+    outline: none;
+}
+
+/* ================================================================
+   KEYFRAME ANIMATIONS (Used by JS classes)
+   ================================================================ */
+.pop {
+    animation: popIn .2s ease;
+}
+
+.letter {
+    transition: color .08s, text-shadow .08s;
+}
+
+.letter.current {
+    color: #00f0ff;
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.55);
+    animation: currentLetterPulse 1s ease-in-out infinite;
+}
+
+.error-flash {
+    animation: errorShake .3s ease;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.35);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes currentLetterPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .65;
+    }
+}
+
+@keyframes errorShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-8px);
+    }
+
+    40% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-5px);
+    }
+
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.high-combo-pulse {
+    animation: highComboGlow 1s ease-in-out infinite;
+}
+
+@keyframes highComboGlow {
+
+    0%,
+    100% {
+        box-shadow: inset 0 0 50px rgba(0, 240, 255, 0);
+    }
+
+    50% {
+        box-shadow: inset 0 0 100px rgba(0, 240, 255, 0.2);
+    }
+}
+
+/* ================================================================
+   CUSTOM SCROLLBAR
+   ================================================================ */
+
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(12, 12, 35, 0.5); 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00f0ff; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00c0cc; 
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #00f0ff rgba(12, 12, 35, 0.5);
+}
